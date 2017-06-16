@@ -1,0 +1,31 @@
+diff -Naur a/arch/arm64/include/asm/cputype.h b/arch/arm64/include/asm/cputype.h
+--- a/arch/arm64/include/asm/cputype.h	2017-06-07 18:08:04.000000000 +0800
++++ b/arch/arm64/include/asm/cputype.h	2017-06-16 12:28:13.122698731 +0800
+@@ -83,9 +83,11 @@
+ #define CAVIUM_CPU_PART_THUNDERX_81XX	0x0A2
+ 
+ #define BRCM_CPU_PART_VULCAN		0x516
++#define BRCM_CPU_PART_CORTEX_B53	0x100
+ 
+ #define MIDR_CORTEX_A53 MIDR_CPU_MODEL(ARM_CPU_IMP_ARM, ARM_CPU_PART_CORTEX_A53)
+ #define MIDR_CORTEX_A57 MIDR_CPU_MODEL(ARM_CPU_IMP_ARM, ARM_CPU_PART_CORTEX_A57)
++#define MIDR_CORTEX_B53 MIDR_CPU_MODEL(ARM_CPU_IMP_BRCM, BRCM_CPU_PART_CORTEX_B53)
+ #define MIDR_THUNDERX	MIDR_CPU_MODEL(ARM_CPU_IMP_CAVIUM, CAVIUM_CPU_PART_THUNDERX)
+ #define MIDR_THUNDERX_81XX MIDR_CPU_MODEL(ARM_CPU_IMP_CAVIUM, CAVIUM_CPU_PART_THUNDERX_81XX)
+ 
+diff -Naur a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
+--- a/arch/arm64/kernel/cpu_errata.c	2017-06-07 18:08:04.000000000 +0800
++++ b/arch/arm64/kernel/cpu_errata.c	2017-06-16 12:29:05.405879865 +0800
+@@ -99,6 +99,12 @@
+ 		.capability = ARM64_WORKAROUND_845719,
+ 		MIDR_RANGE(MIDR_CORTEX_A53, 0x00, 0x04),
+ 	},
++	{
++	/* Cortex-B53 based on r0p4. Need this errata. */
++		.desc = "ARM erratum 845719",
++		.capability = ARM64_WORKAROUND_845719,
++		MIDR_RANGE(MIDR_CORTEX_B53, 0x00, 0x04),
++	},
+ #endif
+ #ifdef CONFIG_CAVIUM_ERRATUM_23154
+ 	{
