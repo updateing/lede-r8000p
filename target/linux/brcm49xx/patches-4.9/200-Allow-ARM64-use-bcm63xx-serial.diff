@@ -1,0 +1,12 @@
+diff -Naur org/drivers/tty/serial/Kconfig mod/drivers/tty/serial/Kconfig
+--- org/drivers/tty/serial/Kconfig	2017-06-07 18:08:04.000000000 +0800
++++ mod/drivers/tty/serial/Kconfig	2017-06-16 12:58:13.728106116 +0800
+@@ -1286,7 +1286,7 @@
+ config SERIAL_BCM63XX
+ 	tristate "Broadcom BCM63xx/BCM33xx UART support"
+ 	select SERIAL_CORE
+-	depends on MIPS || ARM || COMPILE_TEST
++	depends on MIPS || ARM || ARM64 || COMPILE_TEST
+ 	help
+ 	  This enables the driver for the onchip UART core found on
+ 	  the following chipsets:
