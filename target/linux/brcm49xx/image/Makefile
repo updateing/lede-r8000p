@@ -56,12 +56,12 @@ define Device/Default
   # .dtb files are prefixed by SoC type, e.g. bcm4708- which is not included in device/image names
   # extract the full dtb name based on the device info
   DEVICE_DTS := $(patsubst %.dtb,%,$(notdir $(wildcard $(if $(IB),$(KDIR),$(DTS_DIR))/*-$(1).dtb)))
-  KERNEL := kernel-bin | append-dtb | lzma-d16
+  KERNEL := kernel-bin | append-dtb
   KERNEL_DEPENDS = $$(wildcard $(DTS_DIR)/$$(DEVICE_DTS).dts)
   KERNEL_INITRAMFS_SUFFIX := .trx
-  KERNEL_INITRAMFS := kernel-bin | append-dtb | lzma-d16 | trx
+  KERNEL_INITRAMFS := kernel-bin | append-dtb
   FILESYSTEMS := squashfs
-  KERNEL_NAME := zImage
+  KERNEL_NAME := Image
   IMAGE_NAME = $$(IMAGE_PREFIX)-$$(1).$$(2)
   IMAGES := trx
   BLOCKSIZE := 128k
@@ -76,6 +76,7 @@ define Device/netgear
 endef
 
 define Device/netgear-r8000p
+  DEVICE_DTS := broadcom/r8000p
   DEVICE_TITLE := Netgear R8000P
   DEVICE_PACKAGES := $(BRCMFMAC_4366C0) $(USB3_PACKAGES)
   #$(Device/netgear) # Default to trx
