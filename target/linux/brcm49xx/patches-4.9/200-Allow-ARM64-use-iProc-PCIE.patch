@@ -1,0 +1,12 @@
+diff -Naur org/drivers/pci/host/Kconfig mod/drivers/pci/host/Kconfig
+--- org/drivers/pci/host/Kconfig	2017-06-07 18:08:04.000000000 +0800
++++ mod/drivers/pci/host/Kconfig	2017-06-17 19:11:50.161138253 +0800
+@@ -182,7 +182,7 @@
+ 
+ config PCIE_IPROC_BCMA
+ 	tristate "Broadcom iProc PCIe BCMA bus driver"
+-	depends on ARM && (ARCH_BCM_IPROC || COMPILE_TEST)
++	depends on (ARM || ARM64) && (ARCH_BCM_IPROC || COMPILE_TEST)
+ 	select PCIE_IPROC
+ 	select BCMA
+ 	select PCI_DOMAINS
