@@ -21,7 +21,7 @@ endef
 
 include $(INCLUDE_DIR)/target.mk
 
-KERNELNAME:=zImage dtbs
+KERNELNAME:=Image dtbs
 
 DEFAULT_PACKAGES += swconfig nvram \
 	osafeloader oseama otrx \
