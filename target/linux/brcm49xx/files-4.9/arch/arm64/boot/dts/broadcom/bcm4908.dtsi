@@ -1,8 +1,6 @@
 #include <dt-bindings/interrupt-controller/arm-gic.h>
 #include <dt-bindings/interrupt-controller/irq.h>
 
-#include <dt-bindings/soc/bcm963xx_dt_bindings.h> 
-
 #define GIC_DIST_BASE	0x81001000
 #define GIC_CPUI_BASE	0x81002000
 
@@ -15,6 +13,7 @@
 #define PMU_CORE1_SPI			10
 #define PMU_CORE2_SPI			11
 #define PMU_CORE3_SPI			12
+#define UART_SPI			32
 #define SDIO_EMMC_SPI			85
 #define SPU_GMAC_SPI			90
 
@@ -23,7 +22,7 @@
 /memreserve/ 0x00000000 0x00010000;
 
 / {
-	compatible = "brcm,brcm-v8A";
+	compatible = "brcm,ns2";
 	interrupt-parent = <&gic>;
 	#address-cells = <2>;
 	#size-cells = <2>;
@@ -96,6 +95,15 @@
 			reg = <0x0 0x428 0x0 0x10>;
 			timeout-sec = <80>;
 		};
+
+
+		uart0: serial@ff800640 {
+			compatible = "brcm,bcm6345-uart";
+			reg = <0x0 0x640 0x0 0x18>;
+			interrupt-parent = <&gic>;
+			interrupts = <GIC_SPI UART_SPI IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&periph_clk>;
+		};
 	};
 
 	pdc0: spu-pdc@0x8001c000 {
@@ -141,20 +149,12 @@
 		compatible = "brcm,brcm-legacy";
 	};
 
-	uart0: serial@ff800640 {
-		compatible = "brcm,bcm6345-uart";
-		reg = <0xff800640 0x18>;
-		interrupt-parent = <&gic>;
-		interrupts = <2>;
-		clocks = <&periph_clk>;
-	};
-
 	clocks {
 		periph_clk: periph_clk@0 {
 			compatible = "fixed-clock";
 			#clock-cells = <0>;
-			clock-frequency = <14745600>;
-		}
+			clock-frequency = <25000000>;
+		};
 	};
 };
 

@@ -1,0 +1,16 @@
+diff -Naur org/drivers/pci/host/pcie-iproc-bcma.c mod/drivers/pci/host/pcie-iproc-bcma.c
+--- org/drivers/pci/host/pcie-iproc-bcma.c	2017-06-17 20:06:40.666643160 +0800
++++ mod/drivers/pci/host/pcie-iproc-bcma.c	2017-06-07 18:08:04.000000000 +0800
+@@ -33,8 +33,12 @@
+ 
+ static int iproc_pcie_bcma_map_irq(const struct pci_dev *dev, u8 slot, u8 pin)
+ {
++#ifdef CONFIG_ARM
+ 	struct pci_sys_data *sys = dev->sysdata;
+ 	struct iproc_pcie *pcie = sys->private_data;
++#else
++	struct iproc_pcie *pcie = dev->sysdata;
++#endif
+ 	struct bcma_device *bdev = container_of(pcie->dev, struct bcma_device, dev);
+ 
+ 	return bcma_core_irq(bdev, 5);

@@ -3,12 +3,17 @@
 / {
 	model = "Netgear R8000P";
 
+	aliases {
+		serial0 = &uart0;
+	};
+
 	chosen {
-		bootargs = "coherent_pool=1M cpuidle_sysfs_switch";
+		bootargs = "earlyprintk console=ttyS0,115200n8";
+		linux,stdout-path = "serial0:115200n8";
 	};
 
 	memory@0 {
 		device_type = "memory";
 		reg = <0x0 0x0 0x0 0x20000000>;
 	};
-}
+};
