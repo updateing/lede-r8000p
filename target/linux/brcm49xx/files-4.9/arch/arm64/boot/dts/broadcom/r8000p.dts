@@ -1,5 +1,14 @@
-#include "94908.dtsi"
+#include "bcm4908.dtsi"
 
 / {
 	model = "Netgear R8000P";
+
+	chosen {
+		bootargs = "coherent_pool=1M cpuidle_sysfs_switch";
+	};
+
+	memory@0 {
+		device_type = "memory";
+		reg = <0x0 0x0 0x0 0x20000000>;
+	};
 }
