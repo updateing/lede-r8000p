@@ -140,6 +140,22 @@
 	brcm-legacy {
 		compatible = "brcm,brcm-legacy";
 	};
+
+	uart0: serial@ff800640 {
+		compatible = "brcm,bcm6345-uart";
+		reg = <0xff800640 0x18>;
+		interrupt-parent = <&gic>;
+		interrupts = <2>;
+		clocks = <&periph_clk>;
+	};
+
+	clocks {
+		periph_clk: periph_clk@0 {
+			compatible = "fixed-clock";
+			#clock-cells = <0>;
+			clock-frequency = <14745600>;
+		}
+	};
 };
 
 
