@@ -14,6 +14,7 @@
 #define PMU_CORE2_SPI			11
 #define PMU_CORE3_SPI			12
 #define UART_SPI			32
+#define NAND_SPI			37
 #define SDIO_EMMC_SPI			85
 #define SPU_GMAC_SPI			90
 
@@ -74,20 +75,25 @@
 		#size-cells = <2>;
 		ranges = <0x0 0x0 0x0 0xff800000 0x0 0x8000>;
 
-		nand@ff801800 {
+		nand: nand@ff801800 {
 			#address-cells = <1>;
 			#size-cells = <0>;
-			compatible = "brcm,nand-bcm63xx", "brcm,brcmnand-v7.1";
+			compatible = "brcm,nand-bcm63138", "brcm,brcmnand-v7.0", "brcm,brcmnand";
 			reg = <0x0 0x1800 0x0 0x600>, <0x0 0x2000 0x0 0x10>;
 			reg-names = "nand", "nand-int-base";
+			interrupts = <GIC_SPI NAND_SPI IRQ_TYPE_LEVEL_HIGH>;
+			interrupt-names = "nand";
 			status = "okay";
 
 			nandcs@0 {
 				compatible = "brcm,nandcs";
 				reg = <0>;
 				nand-on-flash-bbt;
+				#address-cells = <1>;
+				#size-cells = <1>;
+				nand-ecc-strength = <4>;
+				nand-ecc-step-size = <1024>;
 			};
-
 		};
 
 		watchdog@ff800428 {
@@ -95,7 +101,6 @@
 			reg = <0x0 0x428 0x0 0x10>;
 			timeout-sec = <80>;
 		};
-
 
 		uart0: serial@ff800640 {
 			compatible = "brcm,bcm6345-uart";
