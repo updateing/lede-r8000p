@@ -17,3 +17,33 @@
 		reg = <0x0 0x0 0x0 0x20000000>;
 	};
 };
+
+&nand {
+	nandcs@0 {
+		nand-ecc-strength = <4>;
+		nand-ecc-step-size = <1024>;
+
+		nvram@0 {
+			reg = <0x0 0x100000>;
+		};
+
+		bootfs@100000 {
+			reg = <0x100000 0x4a0000>;
+			read-only;
+		};
+
+		firmware@5a0000 {
+			reg = <0x5a0000 0x3f60000>;
+		};
+
+		/* misc1 ~ misc7 */
+		netgear@4500000 {
+			reg = <0x4500000 0x1200000>;
+			read-only;
+		};
+
+		data@5700000 {
+			reg = <0x5700000 0x2800000>;
+		};
+	};
+};
