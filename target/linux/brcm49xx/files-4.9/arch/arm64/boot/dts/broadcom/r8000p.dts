@@ -2,13 +2,14 @@
 
 / {
 	model = "Netgear R8000P";
+	compatible = "netgear,r8000p";
 
 	aliases {
 		serial0 = &uart0;
 	};
 
 	chosen {
-		bootargs = "earlyprintk console=ttyS0,115200n8";
+		bootargs = "earlyprintk console=ttyS0,115200n8 loglevel=8";
 		linux,stdout-path = "serial0:115200n8";
 	};
 
@@ -22,60 +23,89 @@
 		#address-cells = <1>;
 		#size-cells = <0>;
 
-		/* GPIO base is 448 (ARCH_NR_GPIOS - ngpio) = (512 - 64) = 448 */
-
 		power-white {
 			label = "brcm49xx:white:power";
-			gpios = <&gpio0 456 GPIO_ACTIVE_LOW>; /* GPIO 8 */
+			gpios = <&gpio0 8 GPIO_ACTIVE_LOW>;
 			default-state = "on";
 		};
 
 		power-amber {
 			label = "brcm49xx:amber:power";
-			gpios = <&gpio0 457 GPIO_ACTIVE_LOW>; /* GPIO 9 */
+			gpios = <&gpio0 9 GPIO_ACTIVE_LOW>;
 			default-state = "off";
 		};
 
 		wps {
 			label = "brcm49xx:white:wps-btn";
-			gpios = <&gpio0 458 GPIO_ACTIVE_LOW>; /* GPIO 10 */
+			gpios = <&gpio0 10 GPIO_ACTIVE_LOW>;
 			default-state = "off";
 		};
 
 		2ghz {
 			label = "brcm49xx:white:2ghz";
-			gpios = <&gpio0 462 GPIO_ACTIVE_LOW>; /* GPIO 14 */
+			gpios = <&gpio0 14 GPIO_ACTIVE_LOW>;
 			default-state = "off";
 		};
 
 		5ghz-1 {
 			label = "brcm49xx:white:5ghz-1";
-			gpios = <&gpio0 463 GPIO_ACTIVE_LOW>; /* GPIO 15 */
+			gpios = <&gpio0 15 GPIO_ACTIVE_LOW>;
 			default-state = "off";
 		};
 
 		5ghz-2 {
 			label = "brcm49xx:white:5ghz-2";
-			gpios = <&gpio0 464 GPIO_ACTIVE_LOW>; /* GPIO 16 */
+			gpios = <&gpio0 16 GPIO_ACTIVE_LOW>;
 			default-state = "off";
 		};
 
 		usb2 {
 			label = "brcm49xx:white:usb2";
-			gpios = <&gpio0 465 GPIO_ACTIVE_LOW>; /* GPIO 17 */
+			gpios = <&gpio0 17 GPIO_ACTIVE_LOW>;
 			default-state = "off";
 		};
 
 		usb3 {
 			label = "brcm49xx:white:usb3";
-			gpios = <&gpio0 466 GPIO_ACTIVE_LOW>; /* GPIO 18 */
+			gpios = <&gpio0 18 GPIO_ACTIVE_LOW>;
 			default-state = "off";
 		};
 
 		wireless {
 			label = "brcm49xx:white:wifi-btn";
-			gpios = <&gpio0 504 GPIO_ACTIVE_LOW>; /* GPIO 56 */
+			gpios = <&gpio0 56 GPIO_ACTIVE_LOW>;
 			default-state = "off";
+		};
+	};
+
+	gpio-keys {
+		compatible = "gpio-keys";
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		wps {
+			label = "WPS";
+			linux,code = <KEY_WPS_BUTTON>;
+			gpios = <&gpio0 54 GPIO_ACTIVE_LOW>;
+		};
+
+		rfkill {
+			label = "WiFi";
+			linux,code = <KEY_RFKILL>;
+			gpios = <&gpio0 55 GPIO_ACTIVE_LOW>;
+		};
+
+		restart {
+			label = "Reset";
+			linux,code = <KEY_RESTART>;
+			gpios = <&gpio0 53 GPIO_ACTIVE_LOW>;
+		};
+
+		led-switch {
+			label = "LED Switch";
+			linux,code = <KEY_LIGHTS_TOGGLE>;
+			linux,input_type = <EV_SW>;
+			gpios = <&gpio0 52 GPIO_ACTIVE_LOW>;
 		};
 	};
 };

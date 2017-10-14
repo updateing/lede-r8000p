@@ -1,4 +1,5 @@
 #include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/input/input.h>
 #include <dt-bindings/interrupt-controller/arm-gic.h>
 #include <dt-bindings/interrupt-controller/irq.h>
 
@@ -24,7 +25,6 @@
 /memreserve/ 0x00000000 0x00010000;
 
 / {
-	compatible = "brcm,ns2";
 	interrupt-parent = <&gic>;
 	#address-cells = <2>;
 	#size-cells = <2>;
