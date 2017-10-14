@@ -1,3 +1,4 @@
+#include <dt-bindings/gpio/gpio.h>
 #include <dt-bindings/interrupt-controller/arm-gic.h>
 #include <dt-bindings/interrupt-controller/irq.h>
 
@@ -100,6 +101,15 @@
 			compatible = "brcm,bcm96xxx-wdt";
 			reg = <0x0 0x428 0x0 0x10>;
 			timeout-sec = <80>;
+		};
+
+		gpio0: gpio-controller@ff800500 {
+			compatible = "brcm,bcm6345-gpio";
+			reg-names = "dirout", "dat";
+			reg = <0x0 0x500 0 8>, <0x0 0x528 0 8>; /* 40 bytes actually */
+
+			#gpio-cells = <2>;
+			gpio-controller;
 		};
 
 		uart0: serial@ff800640 {

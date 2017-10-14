@@ -16,6 +16,66 @@
 		device_type = "memory";
 		reg = <0x0 0x0 0x0 0x20000000>;
 	};
+
+	leds {
+		compatible = "gpio-leds";
+
+		/* GPIO base is 448 (ARCH_NR_GPIOS - ngpio) = (512 - 64) = 448 */
+
+		power-white {
+			label = "brcm49xx:white:power";
+			gpios = <&gpio0 456 GPIO_ACTIVE_LOW>; /* GPIO 8 */
+			linux,default-trigger = "default-on";
+		};
+
+		power-amber {
+			label = "brcm49xx:amber:power";
+			gpios = <&gpio0 457 GPIO_ACTIVE_LOW>; /* GPIO 9 */
+			linux,default-trigger = "default-off";
+		};
+
+		wps-btn {
+			label = "brcm49xx:white:wps-btn";
+			gpios = <&gpio0 458 GPIO_ACTIVE_LOW>; /* GPIO 10 */
+			linux,default-trigger = "default-off";
+		};
+
+		2ghz {
+			label = "brcm49xx:white:2ghz";
+			gpios = <&gpio0 462 GPIO_ACTIVE_LOW>; /* GPIO 14 */
+			linux,default-trigger = "default-off";
+		};
+
+		5ghz-1 {
+			label = "brcm49xx:white:5ghz-1";
+			gpios = <&gpio0 463 GPIO_ACTIVE_LOW>; /* GPIO 15 */
+			linux,default-trigger = "default-off";
+		};
+
+		5ghz-2 {
+			label = "brcm49xx:white:5ghz-2";
+			gpios = <&gpio0 464 GPIO_ACTIVE_LOW>; /* GPIO 16 */
+			linux,default-trigger = "default-off";
+		};
+
+		usb2 {
+			label = "brcm49xx:white:usb2";
+			gpios = <&gpio0 465 GPIO_ACTIVE_LOW>; /* GPIO 17 */
+			linux,default-trigger = "default-off";
+		};
+
+		usb3 {
+			label = "brcm49xx:white:usb3";
+			gpios = <&gpio0 466 GPIO_ACTIVE_LOW>; /* GPIO 18 */
+			linux,default-trigger = "default-off";
+		};
+
+		wifi-btn {
+			label = "brcm49xx:white:wifi-btn";
+			gpios = <&gpio0 504 GPIO_ACTIVE_LOW>; /* GPIO 56 */
+			linux,default-trigger = "default-off";
+		};
+	};
 };
 
 &nand {
