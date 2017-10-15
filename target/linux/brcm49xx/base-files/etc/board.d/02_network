@@ -6,6 +6,9 @@
 . /lib/functions/system.sh
 . /lib/functions/uci-defaults.sh
 
+# Temp disable network setup before DTS is finished
+exit 0
+
 board_config_update
 
 board=$(cat /proc/device-tree/compatible | tr '\0' '\t' | cut -f 1)
