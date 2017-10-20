@@ -1,0 +1,59 @@
+From d026a530ea7e5137ba0fa1b109014a17fe752516 Mon Sep 17 00:00:00 2001
+From: Hamster Tian <haotia@gmail.com>
+Date: Tue, 17 Oct 2017 21:03:13 +0800
+Subject: [PATCH] drivers: brcmfmac: add support for 4365E with chip ID 43666
+
+* Not sure if it works, though.
+---
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/chip.c       | 1 +
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c       | 2 ++
+ drivers/net/wireless/broadcom/brcm80211/include/brcm_hw_ids.h | 1 +
+ 3 files changed, 4 insertions(+)
+
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/chip.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/chip.c
+index 05f22ff81d60..d4f1f6c31a8d 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/chip.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/chip.c
+@@ -689,6 +689,7 @@ static u32 brcmf_chip_tcm_rambase(struct brcmf_chip_priv *ci)
+ 	case BRCM_CC_43525_CHIP_ID:
+ 	case BRCM_CC_4365_CHIP_ID:
+ 	case BRCM_CC_4366_CHIP_ID:
++	case BRCM_CC_43666_CHIP_ID:
+ 		return 0x200000;
+ 	default:
+ 		brcmf_err("unknown chip: %s\n", ci->pub.name);
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
+index d3d79219fbb0..898d65eb7a1f 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
+@@ -55,6 +55,7 @@ BRCMF_FW_NVRAM_DEF(4358, "brcmfmac4358-pcie.bin", "brcmfmac4358-pcie.txt");
+ BRCMF_FW_NVRAM_DEF(4359, "brcmfmac4359-pcie.bin", "brcmfmac4359-pcie.txt");
+ BRCMF_FW_NVRAM_DEF(4365B, "brcmfmac4365b-pcie.bin", "brcmfmac4365b-pcie.txt");
+ BRCMF_FW_NVRAM_DEF(4365C, "brcmfmac4365c-pcie.bin", "brcmfmac4365c-pcie.txt");
++BRCMF_FW_NVRAM_DEF(4365E, "brcmfmac4365e-pcie.bin", "brcmfmac4365e-pcie.txt");
+ BRCMF_FW_NVRAM_DEF(4366B, "brcmfmac4366b-pcie.bin", "brcmfmac4366b-pcie.txt");
+ BRCMF_FW_NVRAM_DEF(4366C, "brcmfmac4366c-pcie.bin", "brcmfmac4366c-pcie.txt");
+ BRCMF_FW_NVRAM_DEF(4371, "brcmfmac4371-pcie.bin", "brcmfmac4371-pcie.txt");
+@@ -73,6 +74,7 @@ static struct brcmf_firmware_mapping brcmf_pcie_fwnames[] = {
+ 	BRCMF_FW_NVRAM_ENTRY(BRCM_CC_4359_CHIP_ID, 0xFFFFFFFF, 4359),
+ 	BRCMF_FW_NVRAM_ENTRY(BRCM_CC_4365_CHIP_ID, 0x0000000F, 4365B),
+ 	BRCMF_FW_NVRAM_ENTRY(BRCM_CC_4365_CHIP_ID, 0xFFFFFFF0, 4365C),
++	BRCMF_FW_NVRAM_ENTRY(BRCM_CC_43666_CHIP_ID, 0xFFFFFFFF, 4365E),
+ 	BRCMF_FW_NVRAM_ENTRY(BRCM_CC_4366_CHIP_ID, 0x0000000F, 4366B),
+ 	BRCMF_FW_NVRAM_ENTRY(BRCM_CC_4366_CHIP_ID, 0xFFFFFFF0, 4366C),
+ 	BRCMF_FW_NVRAM_ENTRY(BRCM_CC_4371_CHIP_ID, 0xFFFFFFFF, 4371),
+diff --git a/drivers/net/wireless/broadcom/brcm80211/include/brcm_hw_ids.h b/drivers/net/wireless/broadcom/brcm80211/include/brcm_hw_ids.h
+index d0407d9ad782..b7dc5494db9d 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/include/brcm_hw_ids.h
++++ b/drivers/net/wireless/broadcom/brcm80211/include/brcm_hw_ids.h
+@@ -54,6 +54,7 @@
+ #define BRCM_CC_4359_CHIP_ID		0x4359
+ #define BRCM_CC_43602_CHIP_ID		43602
+ #define BRCM_CC_4365_CHIP_ID		0x4365
++#define BRCM_CC_43666_CHIP_ID		43666   /* 4365E */
+ #define BRCM_CC_4366_CHIP_ID		0x4366
+ #define BRCM_CC_4371_CHIP_ID		0x4371
+ 
+-- 
+2.11.0
+
